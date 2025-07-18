@@ -1,0 +1,8 @@
+ <h2>Finansijski Pregled</h2>
+    <ul>
+      <li *ngFor="let item of transakcija" >
+        <app-transakcija [item]="item"></app-transakcija>
+      </li>
+    </ul>
+    <app-paginacija></app-paginacija>
+  

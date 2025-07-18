@@ -1,0 +1,251 @@
+{
+  "page-size": 20,
+  "page": 1,
+  "total-count": 100,
+  "sort-by": "date,catcode",
+  "sort-order": "date,asc",
+  "items": [
+    {
+      "id": "66229487",
+      "beneficiary-name": "Faculty of contemporary arts",
+      "date": "1/1/2021",
+      "direction": "d",
+      "amount": 187.2,
+      "description": "Tuition",
+      "currency": "USD",
+      "mcc": 8299,
+      "kind": "pmt"
+    },
+    {
+      "id": "15122088",
+      "beneficiary-name": "Glovo",
+      "date": "1/1/2021",
+      "direction": "d",
+      "amount": 44.3,
+      "description": "Food delivery",
+      "currency": "USD",
+      "mcc": 5811,
+      "kind": "pmt"
+    },
+    {
+      "id": "71233330",
+      "beneficiary-name": "Glovo",
+      "date": "1/1/2021",
+      "direction": "d",
+      "amount": 17,
+      "description": "Food delivery",
+      "currency": "USD",
+      "mcc": 5811,
+      "kind": "pmt"
+    },
+    {
+      "id": "24419286",
+      "beneficiary-name": "Claire Stevens",
+      "date": "1/1/2021",
+      "direction": "c",
+      "amount": 300.1,
+      "description": "Monthly rent",
+      "currency": "USD",
+      "mcc": null,
+      "kind": "dep"
+    },
+    {
+      "id": "31952674",
+      "beneficiary-name": "Josh",
+      "date": "1/1/2021",
+      "direction": "d",
+      "amount": 35.1,
+      "description": "Allowance",
+      "currency": "USD",
+      "mcc": null,
+      "kind": "pmt"
+    },
+    {
+      "id": "76053069",
+      "beneficiary-name": "Hertz",
+      "date": "1/1/2021",
+      "direction": "d",
+      "amount": 11.6,
+      "description": "Taxi",
+      "currency": "USD",
+      "mcc": 7519,
+      "kind": "pmt"
+    },
+    {
+      "id": "67251535",
+      "beneficiary-name": "Book depository",
+      "date": "1/2/2021",
+      "direction": "d",
+      "amount": 15.6,
+      "description": "Amazon Kindle subscription",
+      "currency": "USD",
+      "mcc": null,
+      "kind": "pmt"
+    },
+    {
+      "id": "51023898",
+      "beneficiary-name": "Table tenis club PingPong",
+      "date": "1/2/2021",
+      "direction": "d",
+      "amount": 12.3,
+      "description": "Daily pool ticket",
+      "currency": "USD",
+      "mcc": 5655,
+      "kind": "pmt"
+    },
+    {
+      "id": "19088602",
+      "beneficiary-name": "Delhaize",
+      "date": "1/3/2021",
+      "direction": "d",
+      "amount": 33.5,
+      "description": "Supermaket shopping",
+      "currency": "USD",
+      "mcc": 5499,
+      "kind": "pmt"
+    },
+    {
+      "id": "46251212",
+      "beneficiary-name": "Swimming school",
+      "date": "1/3/2021",
+      "direction": "d",
+      "amount": 22,
+      "description": "Membership",
+      "currency": "USD",
+      "mcc": null,
+      "kind": "pmt"
+    },
+    {
+      "id": "38450379",
+      "beneficiary-name": "Blue moon spa",
+      "date": "1/3/2021",
+      "direction": "d",
+      "amount": 22.5,
+      "description": "Massage",
+      "currency": "USD",
+      "mcc": 8050,
+      "kind": "pmt"
+    },
+    {
+      "id": "40474619",
+      "beneficiary-name": "Adobe",
+      "date": "1/3/2021",
+      "direction": "d",
+      "amount": 20.1,
+      "description": "Games",
+      "currency": "USD",
+      "mcc": 5045,
+      "kind": "pmt"
+    },
+    {
+      "id": "77280316",
+      "beneficiary-name": "MetLife",
+      "date": "1/4/2021",
+      "direction": "d",
+      "amount": 200.9,
+      "description": "Life insurance premium",
+      "currency": "USD",
+      "mcc": 6300,
+      "kind": "pmt"
+    },
+    {
+      "id": "62511511",
+      "beneficiary-name": "City parkings",
+      "date": "1/5/2021",
+      "direction": "d",
+      "amount": 2.3,
+      "description": "Parking fee",
+      "currency": "USD",
+      "mcc": 7523,
+      "kind": "pmt"
+    },
+    {
+      "id": "18709472",
+      "beneficiary-name": "A1 Telecom",
+      "date": "1/6/2021",
+      "direction": "d",
+      "amount": 6.9,
+      "description": "Phone bill",
+      "currency": "USD",
+      "mcc": null,
+      "kind": "pmt"
+    },
+    {
+      "id": "56500502",
+      "beneficiary-name": "National Geographic",
+      "date": "1/6/2021",
+      "direction": "d",
+      "amount": 4.8,
+      "description": "National Geographic",
+      "currency": "USD",
+      "mcc": 5192,
+      "kind": "pmt"
+    },
+    {
+      "id": "46134066",
+      "beneficiary-name": "Revolut",
+      "date": "1/6/2021",
+      "direction": "d",
+      "amount": 4.6,
+      "description": "ATM withdrawal fee",
+      "currency": "USD",
+      "mcc": null,
+      "kind": "fee"
+    },
+    {
+      "id": "28670410",
+      "beneficiary-name": "Wolt",
+      "date": "1/6/2021",
+      "direction": "d",
+      "amount": 48.4,
+      "description": "Food delivery",
+      "currency": "USD",
+      "mcc": 5811,
+      "kind": "pmt"
+    },
+    {
+      "id": "61393516",
+      "beneficiary-name": "Dental Plus",
+      "date": "1/6/2021",
+      "direction": "d",
+      "amount": 20.9,
+      "description": "Doctor's appointment",
+      "currency": "USD",
+      "mcc": 8011,
+      "kind": "pmt"
+    },
+    {
+      "id": "31930196",
+      "beneficiary-name": "Claire Stevens",
+      "date": "1/6/2021",
+      "direction": "c",
+      "amount": 300.1,
+      "description": "Monthly rent",
+      "currency": "USD",
+      "mcc": null,
+      "kind": "dep"
+    },
+    {
+      "id": "25661064",
+      "beneficiary-name": "Swimming school",
+      "date": "1/6/2021",
+      "direction": "d",
+      "amount": 27.1,
+      "description": "Membership",
+      "currency": "USD",
+      "mcc": null,
+      "kind": "pmt"
+    },
+    {
+      "id": "55836439",
+      "beneficiary-name": "Faculty of contemporary arts",
+      "date": "1/7/2021",
+      "direction": "d",
+      "amount": 185.5,
+      "description": "Tuition",
+      "currency": "USD",
+      "mcc": 8299,
+      "kind": "pmt"
+    }
+  ]
+}

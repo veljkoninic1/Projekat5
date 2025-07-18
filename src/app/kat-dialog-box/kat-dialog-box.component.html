@@ -1,0 +1,30 @@
+<h2>Odaberi kategoriju i podkategoriju</h2>
+
+<mat-form-field appearance="outline" class="full-width">
+  <mat-label>Kategorija</mat-label>
+  <mat-select [(value)]="selectedCategoryCode" (selectionChange)="onCategoryChange()">
+    <mat-option *ngFor="let cat of categories" [value]="cat.code">
+      {{ cat.name }} ({{ cat.code }})
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="outline" class="full-width" *ngIf="subcategories.length > 0">
+  <mat-label>Podkategorija</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let sub of subcategories" [value]="sub.code">
+      {{ sub.name }} ({{ sub.code }})
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-dialog-actions align="end" class="button-row">
+  <button mat-button >Cancel</button>
+
+  <!-- Apply je primarno dugme; po želji ga onemogući dok nešto nije izabrano -->
+  <button
+    mat-raised-button
+    color="primary"
+  >
+    Apply
+  </button>
+</mat-dialog-actions>

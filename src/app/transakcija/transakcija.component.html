@@ -1,0 +1,13 @@
+<div>
+    {{ item.id }}
+    {{ item["beneficiary-name"] }}
+    ({{ item.date }})
+    {{item.direction}}
+    {{item.amount}}
+    {{item.currency}}
+    {{item.description}}
+    {{item.kind}}
+    {{item.mcc}}
+    <button (click)="otvoriDialog()">Split Transaction</button>
+    <button (click)="otvoriKategorije()">Katergorisi</button>
+</div>
