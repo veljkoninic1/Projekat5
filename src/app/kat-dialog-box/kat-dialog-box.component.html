@@ -4,7 +4,7 @@
   <mat-label>Kategorija</mat-label>
   <mat-select [(value)]="selectedCategoryCode" (selectionChange)="onCategoryChange()">
     <mat-option *ngFor="let cat of categories" [value]="cat.code">
-      {{ cat.name }} ({{ cat.code }})
+      {{ cat.name }} 
     </mat-option>
   </mat-select>
 </mat-form-field>
@@ -13,7 +13,7 @@
   <mat-label>Podkategorija</mat-label>
   <mat-select>
     <mat-option *ngFor="let sub of subcategories" [value]="sub.code">
-      {{ sub.name }} ({{ sub.code }})
+      {{ sub.name }}
     </mat-option>
   </mat-select>
 </mat-form-field>

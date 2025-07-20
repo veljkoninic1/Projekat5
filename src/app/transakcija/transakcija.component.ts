@@ -3,10 +3,12 @@ import { Transakcija } from '../interfaces/transaction.interface';
 import { SPdialogBoxComponent } from '../spdialog-box/spdialog-box.component';
 import { MatDialog } from '@angular/material/dialog';
 import { KatDialogBoxComponent } from '../kat-dialog-box/kat-dialog-box.component';
+import { SelectMultipleTransactionsComponent } from '../select-multiple-transactions/select-multiple-transactions.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-transakcija',
-  imports: [],
+  imports: [SelectMultipleTransactionsComponent, CommonModule],
   templateUrl: './transakcija.component.html',
   styleUrl: './transakcija.component.scss'
 })
@@ -37,6 +39,7 @@ export class TransakcijaComponent {
 
 
  @Input() item!: Transakcija;
+@Input() showCheckbox: boolean = false;
 
  splittransakcija (): void
  {

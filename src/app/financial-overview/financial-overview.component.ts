@@ -8,6 +8,6 @@ import { FinansijskaListaComponent } from "../finansijska-lista/finansijska-list
   styleUrl: './financial-overview.component.scss'
 })
 export class FinancialOverviewComponent {
-
-
 }
+
+

@@ -4,7 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Kategorije } from '../interfaces/transaction.interface';
 import { CommonModule } from '@angular/common';
 import { MatDialogActions } from '@angular/material/dialog';
@@ -17,18 +17,18 @@ import { MatDialogActions } from '@angular/material/dialog';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-  MatDialogActions],
+    MatDialogActions],
   templateUrl: './kat-dialog-box.component.html',
   styleUrl: './kat-dialog-box.component.scss'
 })
 export class KatDialogBoxComponent implements OnInit {
- allItems: Kategorije[] = [];
+  allItems: Kategorije[] = [];
   categories: Kategorije[] = [];
   subcategories: Kategorije[] = [];
 
   selectedCategoryCode: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.http.get<KategorijaaResponse>('assets/katMock.json').subscribe((res) => {
@@ -44,6 +44,6 @@ export class KatDialogBoxComponent implements OnInit {
   }
 
 }
-interface KategorijaaResponse{
+interface KategorijaaResponse {
   items: Kategorije[]
 }

@@ -1,4 +1,7 @@
 <div>
+    <label *ngIf="showCheckbox">
+      <input type="checkbox" />
+    </label>
     {{ item.id }}
     {{ item["beneficiary-name"] }}
     ({{ item.date }})

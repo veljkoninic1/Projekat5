@@ -29,7 +29,6 @@ export class SPdialogBoxComponent implements OnInit {
   ngOnInit(): void {
     this.http.get<KategorijaaResponse>('assets/katMock.json')
     .pipe(
-        // uzmi niz items pa od svakog objekta izvuci samo "name"
         map(res => res.items.map(item => item.name))
       )
     .subscribe((res)=>{
@@ -65,6 +64,7 @@ export class SPdialogBoxComponent implements OnInit {
   submit() {
     console.log(this.form.value);
   }
+  
 
 }
 
