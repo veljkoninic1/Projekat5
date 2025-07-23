@@ -31,7 +31,7 @@ export class KatDialogBoxComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get<KategorijaaResponse>('assets/katMock.json').subscribe((res) => {
+    this.http.get<KategorijaaResponse>('assets/catMock.json').subscribe((res) => {
       this.allItems = res.items;
       this.categories = res.items.filter(item => item['parent-code'] === '');
     });

@@ -17,11 +17,7 @@ export class SelectMultipleTransactionsComponent implements OnInit {
       showCheckBox() {
             this.multipleSelect.showCheckBox(true);
       }
-      // getIDs()
-      // {
-      //  this.multipleSelect.getIDs(false);
 
-      // }
       cancel() {
             this.multipleSelect.showCheckBox(false);
       }
@@ -29,7 +25,6 @@ export class SelectMultipleTransactionsComponent implements OnInit {
       ngOnInit(): void {
             this.selectMultipleSercice.showCheckBox$.subscribe(status => {
                   this.multiSelectOn = status;
-
             });
       }
 }

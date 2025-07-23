@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FinansijskaListaComponent } from "../finansijska-lista/finansijska-lista.component";
+import { FinansijskaListaComponent } from "../financial-table/finansijska-lista.component";
 
 @Component({
   selector: 'app-financial-overview',
@@ -9,5 +9,3 @@ import { FinansijskaListaComponent } from "../finansijska-lista/finansijska-list
 })
 export class FinancialOverviewComponent {
 }
-
-
