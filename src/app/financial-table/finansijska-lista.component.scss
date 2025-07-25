@@ -1,0 +1,306 @@
+:root {
+  --sidebar-width: 220px;
+  --filter-sidebar-width: 280px;
+
+  --sidebar-bg: #121212;
+  --sidebar-text: #e0e0e0;
+  --sidebar-active-bg: #f0b90b; // Binance-like žuta
+  --sidebar-active-text: #1a1a1a;
+
+  --content-bg: #1e1e1e;
+  --content-text: #e0e0e0;
+
+  --surface-bg: #121212;
+  --hover-bg: rgba(240, 185, 11, 0.06);
+  --border-color: rgba(255, 255, 255, 0.08);
+
+  --positive: #4caf50;
+  --negative: #f44336;
+  --split-color: #00bcd4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body, html, .container {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--content-bg);
+  color: var(--content-text);
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+  border-right: 1px solid #333;
+  border-radius: 0 16px 16px 0;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--sidebar-active-bg);
+  text-align: center;
+  margin-bottom: 2rem;
+  user-select: none;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 12px 24px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+  border-radius: 8px;
+  margin: 4px 8px;
+}
+
+.sidebar li:hover,
+.sidebar li.active {
+  background-color: var(--sidebar-active-bg);
+  color: var(--sidebar-active-text);
+}
+
+.sidebar mat-icon {
+  font-size: 20px;
+}
+
+/* === MAIN CONTENT === */
+.content {
+  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* === LIST WRAPPER === */
+.financial-list-wrapper {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* === TABLE CONTAINER === */
+.financial-list-container {
+  flex: 1;
+  min-width: 600px;
+  max-width: calc(100vw - var(--sidebar-width) - var(--filter-sidebar-width) - 6rem);
+  overflow-x: auto;
+  border-radius: 16px;
+  background: var(--surface-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* === TABELA === */
+.dark-table {
+  width: 100%;
+  background-color: var(--surface-bg);
+  color: var(--content-text);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.dark-table th.mat-header-cell {
+  background-color: #1f1f1f;
+  color: var(--sidebar-active-bg);
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--sidebar-active-bg);
+  padding: 12px;
+  font-size: 13px;
+}
+
+.dark-table td.mat-cell {
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px;
+  color: var(--content-text);
+  font-size: 14px;
+}
+
+.dark-table tr.mat-row {
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dark-table tr.mat-row:hover {
+  background-color: var(--hover-bg);
+  box-shadow: 0 2px 8px rgba(240, 185, 11, 0.2);
+  z-index: 2;
+  position: relative;
+}
+
+.dark-table mat-icon {
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+/* === CUSTOM ROW === */
+.row-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+
+.row-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+
+  .beneficiary {
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .date {
+    color: #ccc;
+    font-size: 13px;
+  }
+
+  .transaction-id {
+    font-size: 12px;
+    color: #888;
+  }
+}
+
+.row-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  .amount {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #fff;
+
+    .arrow-icon {
+      margin-right: 4px;
+    }
+
+    &.positive {
+      color: var(--positive);
+    }
+
+    &.negative {
+      color: var(--negative);
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+}
+
+.actions.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+  align-items: flex-end;
+}
+
+/* === DUGMAD === */
+button.mat-stroked-button {
+  border-color: var(--sidebar-active-bg);
+  color: var(--sidebar-active-bg);
+  font-weight: 600;
+  border-width: 2px;
+  border-radius: 20px;
+  font-size: 12px;
+  padding: 4px 12px;
+  transition: all 0.3s ease;
+}
+
+button.mat-stroked-button:hover {
+  background-color: var(--sidebar-active-bg);
+  color: var(--sidebar-active-text);
+}
+
+button.split-button {
+  border-color: var(--split-color);
+  color: var(--split-color);
+}
+
+button.split-button:hover {
+  background-color: var(--split-color);
+  color: #000;
+}
+
+/* === FILTER SIDEBAR === */
+.filter-sidebar {
+  width: var(--filter-sidebar-width);
+  background-color: #1f1f1f;
+  border-radius: 16px;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--content-text);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .financial-list-wrapper {
+    flex-direction: column;
+  }
+
+  .filter-sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .row-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .row-right {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .actions.vertical {
+    align-items: flex-start;
+  }
+}

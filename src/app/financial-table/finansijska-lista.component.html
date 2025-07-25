@@ -1,63 +1,103 @@
-<div class="financial-list-container">
-  <table mat-table [dataSource]="transakcija" class="mat-elevation-z8 dark-table">
+<div class="container">
+  <!-- LEVI SIDEBAR -->
+  <nav class="sidebar">
+    <div class="logo">MyFinance</div>
+    <ul>
+      <li *ngFor="let item of menuItems; let i = index" [class.active]="selectedMenuIndex === i"
+        (click)="selectMenu(i)">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.label }}</span>
+      </li>
+    </ul>
+  </nav>
 
-    <!-- ID Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let item"> {{ item.id }} </td>
+  <!-- GLAVNI SADRŽAJ -->
+  <main class="content">
+    <h1>{{ menuItems[selectedMenuIndex]?.label }}</h1>
+
+    <!-- Prikaz za "Finansije" -->
+    <ng-container *ngIf="selectedMenuIndex === 6">
+      <div class="financial-list-wrapper">
+
+        <!-- TABELA -->
+        <div class="financial-list-container">
+          <table mat-table [dataSource]="pagedData" class="mat-elevation-z8 dark-table custom-table">
+            <ng-container matColumnDef="custom">
+              <td mat-cell *matCellDef="let item">
+                <div class="row-container">
+                  <div class="row-left">
+                    <div class="beneficiary">{{ item['beneficiary-name'] }}</div>
+                    <div class="date">{{ item.date }}</div>
+                    <div class="transaction-id">ID: {{ item.id }}</div>
+                  </div>
+                  <div class="row-right">
+                    <div class="amount">
+                      <mat-icon class="arrow-icon" [style.color]="item.direction === 'c' ? '#4caf50' : '#f44336'">
+                        {{ item.direction === 'c' ? 'arrow_upward' : 'arrow_downward' }}
+                      </mat-icon>
+                      {{ item.amount }} {{ item.currency }}
+                    </div>
+                    <div class="actions vertical">
+                      <button mat-stroked-button color="primary" (click)="openCategoryDialog(item)">
+                        Categorize
+                      </button>
+                      <button mat-stroked-button color="accent" class="split-button">
+                        Split
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td mat-header-cell *matHeaderCellDef></td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['custom']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['custom']"></tr>
+          </table>
+
+          <!-- PAGINACIJA -->
+          <mat-paginator [length]="totalItems" [pageSize]="pageSize" [hidePageSize]="true" [pageIndex]="pageIndex"
+            (page)="onPageChange($event)" showFirstLastButtons>
+          </mat-paginator>
+        </div>
+
+        <!-- DESNI SIDEBAR (FILTERI) -->
+        <aside class="filter-sidebar">
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input matInput [matDatepicker]="fromPicker" [(ngModel)]="filterFromDate">
+            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input matInput [matDatepicker]="toPicker" [(ngModel)]="filterToDate">
+            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+            <mat-datepicker #toPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Transaction Type</mat-label>
+            <mat-select [(ngModel)]="filterKind">
+              <mat-option value="">All</mat-option>
+              <mat-option value="payment">Payment</mat-option>
+              <mat-option value="transfer">Transfer</mat-option>
+              <mat-option value="fee">Fee</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="filter-buttons">
+            <button mat-flat-button color="primary" (click)="applyFilter()">Apply Filter</button>
+            <button mat-flat-button color="warn" (click)="clearFilter()">Clear Filter</button>
+          </div>
+        </aside>
+      </div>
     </ng-container>
 
-    <!-- Beneficiary Name Column -->
-    <ng-container matColumnDef="beneficiary-name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let item"> {{ item['beneficiary-name'] }} </td>
+    <!-- Ostali tabovi -->
+    <ng-container *ngIf="selectedMenuIndex !== 6">
+      <p>Ostali sadržaj za: <strong>{{ menuItems[selectedMenuIndex]?.label }}</strong></p>
     </ng-container>
-
-    <!-- Date Column -->
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let item"> {{ item.date }} </td>
-    </ng-container>
-
-    <!-- Direction Column -->
-    <ng-container matColumnDef="direction">
-  <th mat-header-cell *matHeaderCellDef> Direction </th>
-  <td mat-cell *matCellDef="let item" class="mat-column-direction">
-    <mat-icon [ngClass]="item.direction === 'c' ? 'arrow-upward' : 'arrow-downward'">
-      {{ item.direction === 'c' ? 'arrow_upward' : 'arrow_downward' }}
-    </mat-icon>
-  </td>
-</ng-container>
-
-    <!-- Amount Column -->
-    <ng-container matColumnDef="amount">
-      <th mat-header-cell *matHeaderCellDef> Amount </th>
-      <td mat-cell *matCellDef="let item"> {{ item.amount }} {{ item.currency }} </td>
-    </ng-container>
-
-    <!-- Kind Column -->
-    <ng-container matColumnDef="kind">
-      <th mat-header-cell *matHeaderCellDef> Kind </th>
-      <td mat-cell *matCellDef="let item"> {{ item.kind }} </td>
-    </ng-container>
-
-    <!-- Split Column -->
-    <ng-container matColumnDef="split">
-      <th mat-header-cell *matHeaderCellDef> Split </th>
-      <td mat-cell *matCellDef="let item"> 
-        <mat-icon *ngIf="item.split">split_type</mat-icon>
-      </td>
-    </ng-container>
-
-    <!-- Category Dialog Button -->
-    <ng-container matColumnDef="category-dialog">
-      <th mat-header-cell *matHeaderCellDef> Kategorija </th>
-      <td mat-cell *matCellDef="let item">
-        <button mat-stroked-button color="primary" (click)="openCategoryDialog(item)">Open Categories</button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  </main>
 </div>
