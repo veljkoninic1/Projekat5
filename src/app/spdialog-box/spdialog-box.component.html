@@ -12,11 +12,15 @@
         <mat-form-field appearance="outline" class="flex">
           <mat-label>Category</mat-label>
           <mat-select formControlName="category">
-            <mat-option *ngFor="let c of categories" [value]="c">{{ c }}</mat-option>
+            <mat-option *ngFor="let c of categories" [value]="c">{{ c.name }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
     </div>
+    
+    <div *ngIf="form.hasError('sumMismatch')" class="error">
+    Suma splitova ({{ form.getError('sumMismatch')?.actual }}) mora biti jednaka iznosu {{ form.getError('sumMismatch')?.expected }}.
+  </div>
 
     <div class="button-row">
       <button mat-mini-fab type="button" (click)="addRow()">+</button>

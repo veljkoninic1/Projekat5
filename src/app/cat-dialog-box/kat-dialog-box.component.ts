@@ -7,7 +7,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Kategorije } from '../interfaces/transaction.interface';
 import { CommonModule } from '@angular/common';
-import { MatDialogActions } from '@angular/material/dialog';
+import { MatDialogActions, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
+import { Transakcija } from '../interfaces/transaction.interface';
+import { KategorijaaResponse } from '../interfaces/transaction.interface';
 
 @Component({
   selector: 'app-kat-dialog-box',
@@ -17,7 +21,9 @@ import { MatDialogActions } from '@angular/material/dialog';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MatDialogActions],
+    MatDialogActions,
+    MatDialogModule,
+    MatDialogActions,],
   templateUrl: './kat-dialog-box.component.html',
   styleUrl: './kat-dialog-box.component.scss'
 })
@@ -26,9 +32,11 @@ export class KatDialogBoxComponent implements OnInit {
   categories: Kategorije[] = [];
   subcategories: Kategorije[] = [];
 
-  selectedCategoryCode: string = '';
+  selectedCategory!: Kategorije;
+  selectedSubCategory!: Kategorije;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dialogRef: MatDialogRef<KatDialogBoxComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { transactions: Transakcija[] }) { }
 
   ngOnInit(): void {
     this.http.get<KategorijaaResponse>('assets/catMock.json').subscribe((res) => {
@@ -39,11 +47,21 @@ export class KatDialogBoxComponent implements OnInit {
 
   onCategoryChange(): void {
     this.subcategories = this.allItems.filter(
-      item => item['parent-code'] === this.selectedCategoryCode
+      item => item['parent-code'] === this.selectedCategory.code.toString()
     );
+
   }
 
-}
-interface KategorijaaResponse {
-  items: Kategorije[]
+  aplly(): void {
+
+    for (const transaction of this.data.transactions) {
+      transaction.catname = this.selectedCategory.name;
+      if (this.selectedSubCategory) {
+        transaction.catname += ' | ' + this.selectedSubCategory.name;
+      }
+    }
+    this.dialogRef.close(this.data.transactions);
+  }
+
+
 }

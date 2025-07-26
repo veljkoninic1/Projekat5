@@ -9,6 +9,8 @@ export interface Transakcija
     currency: Number;
     mcc: Number;
     kind: String;
+    splits: Split[];
+    catname: String;
 
   }
   export interface Kategorije
@@ -17,6 +19,10 @@ export interface Transakcija
     "parent-code": string,
     name: string
   }
-
-
-
+ export interface Split{
+    name: string,
+    amount: number
+  }
+export interface KategorijaaResponse {
+  items: Kategorije[]
+}

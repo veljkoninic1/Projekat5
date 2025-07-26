@@ -17,6 +17,20 @@
 
     <!-- Prikaz za "Finansije" -->
     <ng-container *ngIf="selectedMenuIndex === 6">
+      <!-- Action button for batch categorization -->
+      <div class="multi-categorize" style="margin:16px 0;text-align:center;">
+        <button mat-flat-button color="primary" *ngIf="!selectionMode" (click)="toggleSelectionMode()">
+          Select Multiple Transactions
+        </button>
+        <ng-container *ngIf="selectionMode">
+          <button mat-stroked-button color="warn" (click)="cancelSelection()">
+            Cancel
+          </button>
+          <button mat-flat-button color="primary" [disabled]="selectedTxIds.size === 0" (click)="proceedSelection()">
+            Proceed ({{selectedTxIds.size}})
+          </button>
+        </ng-container>
+      </div>
       <div class="financial-list-wrapper">
 
         <!-- TABELA -->
@@ -25,10 +39,16 @@
             <ng-container matColumnDef="custom">
               <td mat-cell *matCellDef="let item">
                 <div class="row-container">
+                  <div *ngIf="selectionMode" class="select-checkbox">
+                    <mat-checkbox *ngIf="selectionMode" [checked]="selectedTxIds.has(item.id)"
+                      (change)="onSelectionChange(item, $event.checked)" color="primary">
+                    </mat-checkbox>
+                  </div>
                   <div class="row-left">
                     <div class="beneficiary">{{ item['beneficiary-name'] }}</div>
-                    <div class="date">{{ item.date }}</div>
+                    <div class="date">{{ item.date | date:'dd/MM/yyyy' }}</div>
                     <div class="transaction-id">ID: {{ item.id }}</div>
+                    <div class="catname"> {{ item.catname }}</div>
                   </div>
                   <div class="row-right">
                     <div class="amount">
@@ -37,18 +57,27 @@
                       </mat-icon>
                       {{ item.amount }} {{ item.currency }}
                     </div>
+                    <ul class="splits">
+                      <li *ngFor="let split of item.splits">
+                        {{ split.name }}: {{ split.amount }}
+                      </li>
+                    </ul>
                     <div class="actions vertical">
                       <button mat-stroked-button color="primary" (click)="openCategoryDialog(item)">
                         Categorize
                       </button>
-                      <button mat-stroked-button color="accent" class="split-button">
+                      <button mat-stroked-button color="accent" class="split-button" (click)="openSplitDialog(item)">
                         Split
                       </button>
                     </div>
                   </div>
                 </div>
               </td>
-              <td mat-header-cell *matHeaderCellDef></td>
+              <th mat-header-cell *matHeaderCellDef class="table-header">
+                <div class="row-left">
+                  Financial Overview
+                </div>
+              </th>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="['custom']"></tr>
@@ -63,35 +92,45 @@
 
         <!-- DESNI SIDEBAR (FILTERI) -->
         <aside class="filter-sidebar">
-          <mat-form-field appearance="outline">
+          <!-- FROM DATE -->
+          <mat-form-field appearance="outline" class="filter-group full-width">
             <mat-label>From Date</mat-label>
-            <input matInput [matDatepicker]="fromPicker" [(ngModel)]="filterFromDate">
+            <input matInput [matDatepicker]="fromPicker"
+              [value]="filterFromDate ? (filterFromDate | date:'dd/MM/yyyy') : ''" readonly (click)="fromPicker.open()"
+              (dateInput)="filterFromDate = $event.value" />
             <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
             <mat-datepicker #fromPicker></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <!-- TO DATE -->
+          <mat-form-field appearance="outline" class="filter-group full-width">
             <mat-label>To Date</mat-label>
-            <input matInput [matDatepicker]="toPicker" [(ngModel)]="filterToDate">
+            <input matInput [matDatepicker]="toPicker" [value]="filterToDate ? (filterToDate | date:'dd/MM/yyyy') : ''"
+              readonly (click)="toPicker.open()" (dateInput)="filterToDate = $event.value" />
             <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
             <mat-datepicker #toPicker></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <!-- TRANSACTION TYPE -->
+          <mat-form-field appearance="outline" class="filter-group full-width">
             <mat-label>Transaction Type</mat-label>
             <mat-select [(ngModel)]="filterKind">
               <mat-option value="">All</mat-option>
-              <mat-option value="payment">Payment</mat-option>
-              <mat-option value="transfer">Transfer</mat-option>
+              <mat-option value="pmt">Payment</mat-option>
+              <mat-option value="dep">Deposit</mat-option>
               <mat-option value="fee">Fee</mat-option>
+              <mat-option value="wdw">Withdrawal</mat-option>
+              <mat-option value="sal">Salary</mat-option>
             </mat-select>
           </mat-form-field>
 
+          <!-- DUGMIĆI -->
           <div class="filter-buttons">
             <button mat-flat-button color="primary" (click)="applyFilter()">Apply Filter</button>
             <button mat-flat-button color="warn" (click)="clearFilter()">Clear Filter</button>
           </div>
         </aside>
+
       </div>
     </ng-container>
 

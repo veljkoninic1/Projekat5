@@ -14,7 +14,20 @@
       "description": "Tuition",
       "currency": "USD",
       "mcc": 8299,
-      "kind": "pmt"
+      "kind": "pmt",
+      "catname": "Education",
+      "splits": [
+        {
+          "catcode": "B",
+          "name": "Education",
+          "amount": 100
+        },
+        {
+          "catcode": "D",
+          "name": "Entertainment",
+          "amount": 87.2
+        }
+      ]
     },
     {
       "id": "15122088",

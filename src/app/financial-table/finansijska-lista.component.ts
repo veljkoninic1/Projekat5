@@ -19,7 +19,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core'; // važno za rad sa Date objektima
 import { MatSelectModule } from '@angular/material/select';
-
+import { MatDatepickerInput } from '@angular/material/datepicker';
+import { SPdialogBoxComponent } from '../spdialog-box/spdialog-box.component';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-finansijska-lista',
@@ -41,12 +43,23 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerInput,
+    MatCheckbox
   ],
   templateUrl: './finansijska-lista.component.html',
   styleUrls: ['./finansijska-lista.component.scss'],
 })
 export class FinansijskaListaComponent implements OnInit {
+
+
+  showFromPicker = false;
+showToPicker = false;
+ // režim selekcije
+  selectionMode = false;
+  // prati koje transakcije su čekirane
+  selectedTxIds = new Set<Number>();
+
  menuItems = [
     { icon: 'home', label: 'Home' },
     { icon: 'account_balance', label: 'My Accounts' },
@@ -109,7 +122,7 @@ export class FinansijskaListaComponent implements OnInit {
   openCategoryDialog(item: Transakcija): void {
     this.dialog.open(KatDialogBoxComponent, {
       width: '400px',
-      data: { transaction: item }
+      data: { transactions: [item] }
     });
   }
 
@@ -128,5 +141,33 @@ export class FinansijskaListaComponent implements OnInit {
     this.filterKind = '';
     this.pageIndex = 0;
     this.updatePagedData();
+  }
+
+  openSplitDialog(item: Transakcija): void {
+    this.dialog.open(SPdialogBoxComponent, {
+      width: '400px',
+      data: { transaction: item }
+    });
+  }
+  
+ toggleSelectionMode() {
+    this.selectionMode = true;
+    this.selectedTxIds.clear();
+  }
+  cancelSelection() {
+    this.selectionMode = false;
+    this.selectedTxIds.clear();
+  }
+  proceedSelection() {
+    const selected = this.pagedData.filter(tx => this.selectedTxIds.has(tx.id));
+    this.dialog.open(KatDialogBoxComponent, {
+      width: '400px',
+      data: { transactions: selected }
+    });
+    this.cancelSelection();
+  }
+  onSelectionChange(tx: Transakcija, checked: boolean) {
+    if (checked) this.selectedTxIds.add(tx.id);
+    else this.selectedTxIds.delete(tx.id);
   }
 }
