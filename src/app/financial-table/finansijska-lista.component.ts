@@ -45,22 +45,16 @@ import { MatCheckbox } from '@angular/material/checkbox';
     MatNativeDateModule,
     MatSelectModule,
     MatDatepickerInput,
-    MatCheckbox
+    MatCheckbox,
+    
   ],
   templateUrl: './finansijska-lista.component.html',
   styleUrls: ['./finansijska-lista.component.scss'],
 })
 export class FinansijskaListaComponent implements OnInit {
 
-
-  showFromPicker = false;
-showToPicker = false;
- // režim selekcije
-  selectionMode = false;
-  // prati koje transakcije su čekirane
-  selectedTxIds = new Set<Number>();
-
- menuItems = [
+  // LEFT MENU
+  menuItems = [
     { icon: 'home', label: 'Home' },
     { icon: 'account_balance', label: 'My Accounts' },
     { icon: 'payment', label: 'Payments' },
@@ -74,30 +68,49 @@ showToPicker = false;
 
   selectedMenuIndex = 6;
 
-  displayedColumns = ['id', 'beneficiary-name', 'date', 'direction', 'amount', 'kind', 'split', 'category-dialog'];
+   selectMenu(index: number) {
+    this.selectedMenuIndex = index;
+  }
+  // LEFT MENU END
+
   transakcija: Transakcija[] = [];
+  
+  // režim selekcije
+  selectionMode = false;
+  // prati koje transakcije su čekirane
+  selectedTxIds = new Set<Number>();
+
+  // Paginacija
   pagedData: Transakcija[] = [];
   pageSize = 7;
   totalItems = 0;
   pageIndex = 0;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   // Filteri
   filterFromDate: Date | null = null;
   filterToDate: Date | null = null;
   filterKind: string = '';
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  constructor(private http: HttpClient, private dialog: MatDialog) {}
-
+  constructor(private http: HttpClient, private dialog: MatDialog) { }
+/*
+  * Inicijalizacija komponente
+  * Učitavanje podataka iz JSON fajla i postavljanje paginacije
+*/
   ngOnInit(): void {
-    this.http.get<{ items: Transakcija[], 'total-count': number }>('assets/mock.json').subscribe(res => {
+    this.http.get<{ items: Transakcija[], 'total-count': number }>('assets/transactionMock.json').subscribe(res => {
       this.transakcija = res.items;
       this.totalItems = res['total-count'] || res.items.length;
       this.updatePagedData();
+      // umesto get requesta, koristi se mock podaci
+      // http.get<Transakcija[]>('https://api.example.com/transactions')
     });
   }
-
+  /**
+   * Ažuriranje paginiranih podataka na osnovu filtera i trenutne stranice
+   */
+  //uzimam sve filtere i filtiriram transakcije
+  //zatim uzimam samo one koje su na trenutnoj stranici
   updatePagedData() {
     const filtered = this.transakcija.filter(item => {
       const itemDate = new Date(item.date);
@@ -111,23 +124,14 @@ showToPicker = false;
 
     const startIndex = this.pageIndex * this.pageSize;
     this.pagedData = filtered.slice(startIndex, startIndex + this.pageSize);
+    // ovo mora da radi na backendu, jer se koristi u paginaciji
   }
 
   onPageChange(event: PageEvent) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.updatePagedData();
-  }
-
-  openCategoryDialog(item: Transakcija): void {
-    this.dialog.open(KatDialogBoxComponent, {
-      width: '400px',
-      data: { transactions: [item] }
-    });
-  }
-
-  selectMenu(index: number) {
-    this.selectedMenuIndex = index;
+     // ovo mora da radi na backendu, jer se koristi u paginaciji
   }
 
   applyFilter() {
@@ -142,15 +146,22 @@ showToPicker = false;
     this.pageIndex = 0;
     this.updatePagedData();
   }
-
+/**
+ * Otvaranje dijaloga
+ */
   openSplitDialog(item: Transakcija): void {
     this.dialog.open(SPdialogBoxComponent, {
-      width: '400px',
       data: { transaction: item }
     });
   }
   
- toggleSelectionMode() {
+  openCategoryDialog(item: Transakcija): void {
+    this.dialog.open(KatDialogBoxComponent, {
+      data: { transactions: [item] }
+    });
+  }
+
+  toggleSelectionMode() {
     this.selectionMode = true;
     this.selectedTxIds.clear();
   }
@@ -161,7 +172,6 @@ showToPicker = false;
   proceedSelection() {
     const selected = this.pagedData.filter(tx => this.selectedTxIds.has(tx.id));
     this.dialog.open(KatDialogBoxComponent, {
-      width: '400px',
       data: { transactions: selected }
     });
     this.cancelSelection();

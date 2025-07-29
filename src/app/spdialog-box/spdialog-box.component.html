@@ -1,11 +1,14 @@
 <div class="transaction-card">
-  <h3>Transaction 1, amount 1000</h3>
+  <h3>
+    ID transaction: {{ data.transaction.id }}<br />
+    Ammount: {{ data.transaction.amount }} {{data.transaction.currency}}<br />
+  </h3>
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
+  <form [formGroup]="form" (ngSubmit)="submit()" >
     <div formArrayName="transactionRows">
       <div class="row" *ngFor="let row of transactionRows.controls; let i = index" [formGroupName]="i">
         <mat-form-field appearance="outline" class="flex">
-          <mat-label>int value</mat-label>
+          <mat-label>Split</mat-label>
           <input matInput type="number" formControlName="value" />
         </mat-form-field>
 
@@ -19,11 +22,21 @@
     </div>
     
     <div *ngIf="form.hasError('sumMismatch')" class="error">
-    Suma splitova ({{ form.getError('sumMismatch')?.actual }}) mora biti jednaka iznosu {{ form.getError('sumMismatch')?.expected }}.
+    The summ of splits ({{ form.getError('sumMismatch')?.actual }}) must be equal to the ammount {{ form.getError('sumMismatch')?.expected }}.
   </div>
 
     <div class="button-row">
       <button mat-mini-fab type="button" (click)="addRow()">+</button>
+       <button
+      mat-icon-button
+      type="button"
+      class="remove-btn"
+      (click)="removeSplit(i)"
+      [disabled]="transactionRows.length <= 2"
+      aria-label="Obriši ovaj split"
+    >
+      <mat-icon>remove_circle</mat-icon>
+    </button>
       <button mat-raised-button color="primary" type="submit">Submit</button>
     </div>
   </form>

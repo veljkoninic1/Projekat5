@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Kategorije } from '../interfaces/transaction.interface';
 import { CommonModule } from '@angular/common';
 import { MatDialogActions, MatDialogModule } from '@angular/material/dialog';
@@ -12,9 +12,21 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { Transakcija } from '../interfaces/transaction.interface';
 import { KategorijaaResponse } from '../interfaces/transaction.interface';
+import { MAT_SELECT_CONFIG, MatSelectConfig } from '@angular/material/select';
 
 @Component({
   selector: 'app-kat-dialog-box',
+  providers: [
+    {
+      provide: MAT_SELECT_CONFIG,
+      useValue: <MatSelectConfig>{
+        // forsiraj da se panel uvek otvara ispod
+        yPosition: 'below',
+        // po želji možeš ovde staviti i globalni panelClass
+        overlayPanelClass: 'inline-select-panel'
+      }
+    }
+  ],
   imports: [CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -24,6 +36,7 @@ import { KategorijaaResponse } from '../interfaces/transaction.interface';
     MatDialogActions,
     MatDialogModule,
     MatDialogActions,],
+    
   templateUrl: './kat-dialog-box.component.html',
   styleUrl: './kat-dialog-box.component.scss'
 })
@@ -55,13 +68,12 @@ export class KatDialogBoxComponent implements OnInit {
   aplly(): void {
 
     for (const transaction of this.data.transactions) {
-      transaction.catname = this.selectedCategory.name;
+      transaction.description = this.selectedCategory.name;
       if (this.selectedSubCategory) {
-        transaction.catname += ' | ' + this.selectedSubCategory.name;
+        transaction.description += ' | ' + this.selectedSubCategory.name;
       }
     }
     this.dialogRef.close(this.data.transactions);
+    //treba da radi na backendu
   }
-
-
 }

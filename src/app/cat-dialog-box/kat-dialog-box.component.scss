@@ -2,16 +2,16 @@
   display: block;
 }
 
-/* Container za ceo content */
+/* Container for entire dialog content */
 .dialog-content {
   background: var(--surface-bg);
   color: var(--content-text);
   padding: 1.5rem 1.75rem;
-  overflow: visible !important; /* uklanja unutrašnji scroll */
+  overflow: visible !important;
   max-height: none !important;
 }
 
-/* Stil za naslov */
+/* Dialog title styling */
 .dialog-title {
   margin: 0 0 1rem;
   font-size: 1.4rem;
@@ -19,71 +19,76 @@
   color: var(--sidebar-active-bg);
 }
 
-/* Wrapper za formu */
+/* Form wrapper */
 .form-wrapper {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-/* Full width form-field */
 .full-width {
   width: 100%;
 }
 
-/* Override outline boja */
+/* Outline color overrides for form fields */
 :host ::ng-deep .mat-form-field-outline path {
   stroke: var(--border-color) !important;
 }
-
 :host ::ng-deep .mat-form-field.mat-focused .mat-form-field-outline path {
   stroke: var(--sidebar-active-bg) !important;
 }
 
-/* Dugmići u dnu */
-.button-row {
-  padding: 1rem 1.75rem;
-  background: var(--surface-bg);
-}
-
-.button-row button {
-  border-radius: 20px;
-}
-
-/* Primarni Apply dugme stil */
-.button-row button[color="primary"] {
-  background-color: var(--sidebar-active-bg) !important;
-  color: var(--sidebar-active-text) !important;
-  transition: background-color 0.3s ease;
-}
-
-.button-row button[color="primary"]:hover {
-  background-color: var(--hover-bg) !important;
-}
-
-/* Cancel dugme u stilu light-outline */
-.button-row button[mat-button] {
-  color: var(--content-text);
-}
-/* ————————————————————————
-   Zaobljene ivice za čitav dialog
-——————————————————————————— */
+/* Dialog container radius */
 :host ::ng-deep .mat-dialog-container,
 :host ::ng-deep .mat-mdc-dialog-container {
   border-radius: 16px !important;
   overflow: hidden !important;
 }
 
-/* ————————————————————————
-   Zaobljeni outline input polja
-——————————————————————————— */
-:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+/* Form field outline radius */
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline,
+:host ::ng-deep .mat-form-field-flex {
   border-radius: 8px !important;
 }
 
-/* ————————————————————————
-   I za wrapper (flex) unutar form‑field
-——————————————————————————— */
-:host ::ng-deep .mat-form-field-flex {
-  border-radius: 8px !important;
+/* Button row styling */
+.button-row {
+  display: flex;
+  gap: 16px;
+  padding: 1rem 1.75rem;
+  background: var(--surface-bg);
+}
+
+/* Remove any default button border-radius before applying pill shape */
+:host ::ng-deep .button-row button {
+  border-radius: 0 !important;
+}
+
+/* Common pill style for both buttons */
+:host ::ng-deep .pill-button {
+  border-radius: 50px !important;
+  padding: 8px 16px !important;
+  text-transform: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Apply button styling */
+:host ::ng-deep .apply-button {
+  background-color: var(--sidebar-active-bg) !important;
+  color: var(--sidebar-active-text) !important;
+}
+:host ::ng-deep .apply-button:hover:not([disabled]) {
+  background-color: var(--hover-bg) !important;
+  color: #000 !important;
+}
+
+/* Cancel button styling */
+:host ::ng-deep .cancel-button {
+  background-color: transparent !important;
+  color: var(--content-text) !important;
+  border: 1px solid var(--border-color) !important;
+}
+:host ::ng-deep .cancel-button:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
 }

@@ -18,19 +18,22 @@
     <!-- Prikaz za "Finansije" -->
     <ng-container *ngIf="selectedMenuIndex === 6">
       <!-- Action button for batch categorization -->
-      <div class="multi-categorize" style="margin:16px 0;text-align:center;">
+      <div class="multi-categorize" style="margin:16px 0; text-align:center;">
         <button mat-flat-button color="primary" *ngIf="!selectionMode" (click)="toggleSelectionMode()">
           Select Multiple Transactions
         </button>
+
         <ng-container *ngIf="selectionMode">
-          <button mat-stroked-button color="warn" (click)="cancelSelection()">
+          <button mat-stroked-button color="warn" class="pill-button" (click)="cancelSelection()">
             Cancel
           </button>
-          <button mat-flat-button color="primary" [disabled]="selectedTxIds.size === 0" (click)="proceedSelection()">
-            Proceed ({{selectedTxIds.size}})
+          <button mat-flat-button color="primary" class="pill-button" [disabled]="selectedTxIds.size === 0"
+            (click)="proceedSelection()">
+            Proceed
           </button>
         </ng-container>
       </div>
+
       <div class="financial-list-wrapper">
 
         <!-- TABELA -->
@@ -48,7 +51,7 @@
                     <div class="beneficiary">{{ item['beneficiary-name'] }}</div>
                     <div class="date">{{ item.date | date:'dd/MM/yyyy' }}</div>
                     <div class="transaction-id">ID: {{ item.id }}</div>
-                    <div class="catname"> {{ item.catname }}</div>
+                    <div class="catname"> {{ item.description }}</div>
                   </div>
                   <div class="row-right">
                     <div class="amount">

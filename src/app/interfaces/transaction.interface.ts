@@ -10,8 +10,6 @@ export interface Transakcija
     mcc: Number;
     kind: String;
     splits: Split[];
-    catname: String;
-
   }
   export interface Kategorije
   {

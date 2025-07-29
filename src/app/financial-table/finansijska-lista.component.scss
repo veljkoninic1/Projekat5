@@ -283,33 +283,6 @@ body, html, .container {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-/* ...ostatak filter sidebar stilova ostaje nepromenjen... */
-
-
-/* Filter panel form fields */
-.filter-sidebar mat-form-field {
-  width: 100%;
-}
-:host ::ng-deep .filter-sidebar .mat-form-field-flex {
-  background-color: #121212;
-  border-radius: 8px;
-}
-:host ::ng-deep .filter-sidebar .mat-form-field-outline path {
-  stroke: #2a2a2a;
-}
-:host ::ng-deep .filter-sidebar .mat-form-field.mat-focused .mat-form-field-outline path {
-  stroke: var(--sidebar-active-bg);
-}
-:host ::ng-deep .filter-sidebar .mat-input-element {
-  color: #ffffff;
-}
-:host ::ng-deep .filter-sidebar .mat-placeholder {
-  color: #cccccc;
-}
-:host ::ng-deep .filter-sidebar .mat-datepicker-toggle .mat-icon {
-  color: #e0e0e0;
-}
-
 /* Filter panel buttons */
 :host ::ng-deep .filter-sidebar .filter-buttons button[mat-flat-button] {
   background-color: #1a1a1a !important;
@@ -379,32 +352,6 @@ body, html, .container {
   box-shadow: 0 0 0 2px rgba(240,185,11,0.2);
 }
 
-/* Kalendarski widget već ste delimično stilizovali, evo još par detalja */
-:host ::ng-deep .mat-calendar {
-  background-color: var(--surface-bg) !important;
-  color: var(--content-text) !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
-}
-
-:host ::ng-deep .mat-calendar-header {
-  background-color: var(--sidebar-active-bg) !important;
-}
-
-:host ::ng-deep .mat-calendar-body-cell {
-  color: var(--content-text) !important;
-}
-
-:host ::ng-deep .mat-calendar-body-cell:hover {
-  background-color: var(--hover-bg) !important;
-}
-
-:host ::ng-deep .mat-calendar-body-cell.mat-calendar-body-active,
-:host ::ng-deep .mat-calendar-body-selected {
-  background-color: var(--sidebar-active-bg) !important;
-  color: var(--sidebar-active-text) !important;
-}
-
 
 /* === SELECT STYLES === */
 :host ::ng-deep .mat-select-panel {
@@ -426,63 +373,6 @@ body, html, .container {
   z-index: 2000 !important;
 }
 
-/* === DATEPICKER PANEL === */
-:host ::ng-deep .mat-datepicker-content, 
-:host ::ng-deep .mat-datepicker-popup {
-  background-color: var(--surface-bg) !important;
-  color: var(--content-text) !important;
-  z-index: 2000 !important;
-}
-:host ::ng-deep .mat-datepicker-toggle .mat-icon {
-  color: var(--sidebar-active-bg) !important;
-}
-
-/* === DATEPICKER HEADER & CELLS === */
-:host ::ng-deep .mat-calendar-header {
-  background-color: var(--sidebar-active-bg) !important;
-}
-:host ::ng-deep .mat-calendar-header .mat-calendar-period-button,
-:host ::ng-deep .mat-calendar-header .mat-calendar-previous-button,
-:host ::ng-deep .mat-calendar-header .mat-calendar-next-button {
-  color: var(--sidebar-active-text) !important;
-}
-:host ::ng-deep .mat-calendar-body-cell.mat-calendar-body-active,
-:host ::ng-deep .mat-calendar-body-selected {
-  background-color: var(--sidebar-active-bg) !important;
-  color: var(--sidebar-active-text) !important;
-}
-:host ::ng-deep .mat-calendar-body-cell:hover {
-  background-color: var(--hover-bg) !important;
-  color: var(--content-text) !important;
-}
-
-/* === FILTER DATEPICKER & SELECT OVERRIDES === */
-:host ::ng-deep .cdk-overlay-container .mat-datepicker-overlay,
-:host ::ng-deep .cdk-overlay-container .mat-datepicker-content,
-:host ::ng-deep .cdk-overlay-container .mat-datepicker-toggle,
-:host ::ng-deep .cdk-overlay-container .mat-calendar,
-:host ::ng-deep .cdk-overlay-container .mat-select-panel {
-  background-color: var(--surface-bg) !important;
-  color: var(--content-text) !important;
-  z-index: 3000 !important;
-}
-
-:host ::ng-deep .cdk-overlay-container .mat-calendar-header {
-  background-color: var(--sidebar-active-bg) !important;
-}
-:host ::ng-deep .cdk-overlay-container .mat-calendar-body-cell.mat-calendar-body-active,
-:host ::ng-deep .cdk-overlay-container .mat-calendar-body-selected {
-  background-color: var(--sidebar-active-bg) !important;
-  color: var(--sidebar-active-text) !important;
-}
-
-:host ::ng-deep .cdk-overlay-container .mat-option.mat-selected {
-  background-color: var(--sidebar-active-bg) !important;
-  color: var(--sidebar-active-text) !important;
-}
-:host ::ng-deep .cdk-overlay-container .mat-option:hover {
-  background-color: rgba(240,185,11,0.1) !important;
-}
 /* === MULTI-CATEGORIZE BUTTON === */
 .multi-categorize {
   text-align: center;
@@ -662,4 +552,19 @@ body, html, .container {
   margin-right: 8px !important;
   display: flex;
   align-items: center;
+}
+.multi-categorize .pill-button {
+  border-radius: 50px !important;        /* zaobljeni „pill“ oblik */
+  margin: 0 8px;                          /* razmak levo/desno između njih */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    background-color: var(--hover-bg) !important;  /* blagi hover background */
+    box-shadow: 0 2px 4px rgba(255, 252, 252, 0.2);       /* blaga senka na hover */
+  }
+}
+//konacno za mrtvi checkbox
+.mat-mdc-row {
+    height: var(--mat-table-row-item-container-height, 52px);
+    color: rgba(248, 244, 244, 0.87);
 }

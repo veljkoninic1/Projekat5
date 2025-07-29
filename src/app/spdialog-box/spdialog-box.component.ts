@@ -7,7 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Kategorije } from '../interfaces/transaction.interface';
-import { map } from 'rxjs/operators';
 import { Transakcija } from '../interfaces/transaction.interface';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
@@ -15,6 +14,7 @@ import { Split } from '../interfaces/transaction.interface';
 import { ValidationErrors, AbstractControl, ValidatorFn } from '@angular/forms'; 
 import { Validators } from '@angular/forms';
 import { KategorijaaResponse } from '../interfaces/transaction.interface';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-spdialog-box',
@@ -24,6 +24,7 @@ import { KategorijaaResponse } from '../interfaces/transaction.interface';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatIcon
   ],
   templateUrl: './spdialog-box.component.html',
   styleUrl: './spdialog-box.component.scss'
@@ -31,7 +32,7 @@ import { KategorijaaResponse } from '../interfaces/transaction.interface';
 export class SPdialogBoxComponent implements OnInit {
    form: FormGroup;
   categories: Kategorije[] = [];
-
+  i=0;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -93,5 +94,12 @@ export class SPdialogBoxComponent implements OnInit {
       name: control.get('category')?.value.name,
       amount: Number(control.get('value')?.value)
     }));
+    // ovo sluzi da napravi splitove da mozemo da ih prikazemo u tabeli iz forme
+  }
+  //brise red iz forme
+   removeSplit(index: number): void {
+    if (this.transactionRows.length > 1) {
+      this.transactionRows.removeAt(index);
+    }
   }
 }
