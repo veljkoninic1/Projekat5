@@ -88,6 +88,9 @@ export class SPdialogBoxComponent implements OnInit {
     this.data.transaction.splits = this.buildSplits();
     this.dialogRef.close(this.data.transaction);
   }
+  onCancel() {
+    this.dialogRef.close();  // jednostavno zatvori bez vraćanja podataka
+  }
 
   private buildSplits(): Split[] {
     return this.transactionRows.controls.map(control => ({

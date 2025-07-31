@@ -64,3 +64,40 @@
   font-size: 20px;
 }
 
+::ng-deep .mat-select-panel-animations-enabled.mat-mdc-select-panel.mdc-menu-surface.mdc-menu-surface--open.mat-primary{
+
+  background-color: var(--surface-bg) !important; /* tamni container */
+  color: var(--content-text) !important;           /* svetli tekst */
+}
+.pill-button {
+  border-radius: 999px !important;
+  padding: 8px 24px !important;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: none;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  min-width: 120px;
+  height: 42px;
+}
+
+.apply-button {
+  background: var(--sidebar-active-bg) !important;
+  color: var(--sidebar-active-text) !important;
+  border: 2px solid var(--sidebar-active-bg) !important;
+}
+.apply-button:hover:not([disabled]) {
+  background: var(--hover-bg, #ffe066) !important;
+  color: #000 !important;
+}
+
+.cancel-button {
+  background: transparent !important;
+  color: var(--content-text) !important;
+  border: 2px solid var(--border-color) !important;
+}
+.cancel-button:hover {
+  background: rgba(255,255,255,0.08) !important;
+}
+mat-form-field {
+  width: 100%;
+}

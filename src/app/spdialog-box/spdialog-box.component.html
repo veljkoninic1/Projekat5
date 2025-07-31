@@ -37,7 +37,17 @@
     >
       <mat-icon>remove_circle</mat-icon>
     </button>
-      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button mat-raised-button color="primary"
+       type="submit"
+       class="pill-button apply-button"
+       >Submit</button>
+       <button
+    mat-stroked-button
+    class="pill-button cancel-button"
+    (click)="onCancel()"
+    >
+    Cancel
+  </button>
     </div>
   </form>
 </div>

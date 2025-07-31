@@ -568,3 +568,33 @@ body, html, .container {
     height: var(--mat-table-row-item-container-height, 52px);
     color: rgba(248, 244, 244, 0.87);
 }
+
+
+::ng-deep .mat-calendar-table{
+  background-color: var(--surface-bg) !important; /* tamni container */
+  color: var(--content-text) !important;           /* svetli tekst */
+}
+
+::ng-deep .mat-calendar-body{
+  color: var(--content-text) !important;           /* svetli tekst */
+}
+
+::ng-deep .mat-calendar-body-cell-container{
+  color: var(--content-text) !important;           /* svetli tekst */ 
+}
+::ng-deep .mat-calendar-body-cell-content-mat-focus-indicator{
+  color: var(--content-text) !important;           /* svetli tekst */
+}
+
+
+::ng-deep .mat-calendar-body-cell-container{
+  color: var(--content-text) !important;           /* svetli tekst */ 
+}
+::ng-deep.mat-calendar-body-cell-content.mat-focus-indicator{
+  color: var(--content-text) !important;           /* svetli tekst */ 
+}
+::ng-deep .mat-select-panel-animations-enabled.mat-mdc-select-panel.mdc-menu-surface.mdc-menu-surface--open.mat-primary
+{
+  background-color: var(--surface-bg) !important; /* tamni container */
+  color: var(--content-text) !important;           /* svetli tekst */
+}

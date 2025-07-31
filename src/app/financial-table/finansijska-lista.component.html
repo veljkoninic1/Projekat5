@@ -98,18 +98,15 @@
           <!-- FROM DATE -->
           <mat-form-field appearance="outline" class="filter-group full-width">
             <mat-label>From Date</mat-label>
-            <input matInput [matDatepicker]="fromPicker"
-              [value]="filterFromDate ? (filterFromDate | date:'dd/MM/yyyy') : ''" readonly (click)="fromPicker.open()"
-              (dateInput)="filterFromDate = $event.value" />
+            <input matInput [matDatepicker]="fromPicker" [(ngModel)]="filterFromDate" readonly
+              (click)="fromPicker.open()" />
             <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
             <mat-datepicker #fromPicker></mat-datepicker>
           </mat-form-field>
 
-          <!-- TO DATE -->
           <mat-form-field appearance="outline" class="filter-group full-width">
             <mat-label>To Date</mat-label>
-            <input matInput [matDatepicker]="toPicker" [value]="filterToDate ? (filterToDate | date:'dd/MM/yyyy') : ''"
-              readonly (click)="toPicker.open()" (dateInput)="filterToDate = $event.value" />
+            <input matInput [matDatepicker]="toPicker" [(ngModel)]="filterToDate" readonly (click)="toPicker.open()" />
             <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
             <mat-datepicker #toPicker></mat-datepicker>
           </mat-form-field>
